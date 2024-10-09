@@ -8,8 +8,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      # ./srcフォルダをコンテナ内の/var/www/htmlにマウント
-      - ./app:/var/www/app  # LaravelのコードをPHP-FPMと共有する
+      # ./srcフォルダをコンテナ内の/var/wwwにマウント
+      - .:/var/www  # LaravelのコードをPHP-FPMと共有する
       # ./docker/nginxフォルダをコンテナ内の/etc/nginx/conf.dにマウント
       - ./docker/nginx:/etc/nginx/conf.d # NGINX設定ファイル
     depends_on:
@@ -27,7 +27,7 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./app:/var/www/app  # Laravelのコードをマウント
+      - .:/var/www  # Laravelのコードをマウント
     # 依存関係を設定
     depends_on:
       - mysql
