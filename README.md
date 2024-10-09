@@ -41,6 +41,5 @@ basic-laravel-project(プロジェクトのルートディレクトリ)
 7. phpコンテナから抜け、起動しているコンテナを再起動し、.envファイルの更新を反映させる
 <pre>
   # exit
-  $docker-compose down
-  $docker-compose up -d
+  $docker-compose restart
 </pre>
