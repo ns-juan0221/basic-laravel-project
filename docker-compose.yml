@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  # webサーバー
+  nginx:
+    container_name: trackExpenses-web
+    image: nginx:1.20.0-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      # ./srcフォルダをコンテナ内の/var/www/htmlにマウント
+      - ./app:/var/www/app  # LaravelのコードをPHP-FPMと共有する
+      # ./docker/nginxフォルダをコンテナ内の/etc/nginx/conf.dにマウント
+      - ./docker/nginx:/etc/nginx/conf.d # NGINX設定ファイル
+    depends_on:
+      - php-fpm
+  # appサーバー
+  php-fpm:
+    container_name: trackExpenses-app
+    build: 
+      context: ./docker/php  
+      dockerfile: Dockerfile
+    # コンテナ内で使用される環境変数を定義
+    environment:
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./app:/var/www/app  # Laravelのコードをマウント
+    # 依存関係を設定
+    depends_on:
+      - mysql
+  # dbサーバー
+  mysql:
+    container_name: trackExpenses-db
+    image: mysql:8.0
+    environment:
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      # 名前付きボリュームを MySQL コンテナに紐づける
+      - mysqldata:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+        - '3306:3306'
+volumes:
+  # 名前付きボリュームの作成
+  mysqldata:
