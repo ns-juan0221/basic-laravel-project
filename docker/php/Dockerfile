@@ -18,7 +18,7 @@ COPY ./php.ini /usr/local/etc/php/php.ini
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
 # Laravelプロジェクト用ディレクトリを作成
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # PHP-FPMをデフォルトコマンドに設定
 CMD ["php-fpm"]
