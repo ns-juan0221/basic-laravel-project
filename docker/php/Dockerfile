@@ -1,5 +1,5 @@
 # PHP 8.0 FPMベース
-FROM php:8.0-fpm
+FROM php:8.2-fpm
 
 # 必要なPHP拡張機能をインストール
 RUN apt-get update && apt-get install -y \
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./php.ini /usr/local/etc/php/php.ini
 
-COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
 # Laravelプロジェクト用ディレクトリを作成
 WORKDIR /var/www/html
