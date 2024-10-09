@@ -28,11 +28,11 @@ basic-laravel-project(プロジェクトのルートディレクトリ)
 </pre>
 4. phpコンテナ内でcomposerが入っていることを確認する
 <pre>
-# composer -V
+  # composer -V
 </pre>
 5. Laravelをインストールする
 <pre>
-# composer create-project --prefer-dist "laravel/laravel=6.*" .
+  # composer create-project --prefer-dist "laravel/laravel=6.*" .
 </pre>
 6. .envファイルにAPP_KEYを生成する
 <pre>
