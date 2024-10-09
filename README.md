@@ -32,7 +32,7 @@ basic-laravel-project(プロジェクトのルートディレクトリ)
 </pre>
 5. Laravelをインストールする
 <pre>
-  # composer create-project --prefer-dist "laravel/laravel=6.*" .
+  # composer create-project --prefer-dist "laravel/laravel=8.*" .
 </pre>
 6. .envファイルにAPP_KEYを生成する
 <pre>
